@@ -1,0 +1,44 @@
+package coding;
+
+import java.util.Scanner;
+
+public class SubsetSumTopDownDP {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		int arr[]= new int[n];
+		//int  val[] = new int[n];
+		for(int i=0;i<n;i++)
+			arr[i]=sc.nextInt();
+//		for(int i=0;i<n;i++)
+//			val[i]=sc.nextInt();
+		
+		int sum = sc.nextInt();
+		System.out.print(helper(arr,n,sum));;
+		sc.close();
+	}
+	public static boolean helper(int arr[],int n,int sum)
+	{
+		boolean dp[][] = new boolean[n+1][sum+1];
+		for(int i=0;i<n+1;i++)
+		{
+			for(int j=0;j<=sum;j++)
+			{
+				if(i==0)
+					dp[i][j]=false;
+				if(j==0)
+					dp[i][j]=true;
+				
+				if(arr[i-1]<=j)
+					dp[i][j]= dp[i-1][j-arr[i-1]]|| dp[i-1][j];
+				else if(arr[i-1]>j)
+					dp[i][j]=dp[i-1][j];
+			}
+		}
+		return dp[n][sum];
+	}
+	
+
+}
